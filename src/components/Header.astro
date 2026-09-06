@@ -1,0 +1,70 @@
+---
+import { site, nav } from "../config";
+import Icon from "./Icon.astro";
+import ThemeToggle from "./ThemeToggle.astro";
+---
+
+<header class="sticky top-0 z-40 border-b border-border/80 bg-canvas/90 backdrop-blur">
+  <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4 lg:px-8">
+    <a href="#main" class="flex items-center gap-2.5 font-semibold tracking-tight text-ink">
+      <Icon name="logo" class="size-8 text-accent" />
+      <span class="text-[15px] leading-tight sm:text-base">
+        Cinar Software<span class="hidden sm:inline"> </span><br class="sm:hidden" /> Consulting
+      </span>
+    </a>
+
+    <div class="flex items-center gap-2 md:gap-4">
+      <nav class="hidden items-center gap-8 md:flex" aria-label="Hovednavigation">
+        {
+          nav.map((item) => (
+            <a
+              href={item.href}
+              class="text-sm font-medium text-muted transition-colors hover:text-ink"
+            >
+              {item.label}
+            </a>
+          ))
+        }
+        <a
+          href="#kontakt"
+          class="rounded-full bg-accent px-4 py-2 text-sm font-semibold text-accent-ink transition-transform hover:scale-[1.03]"
+        >
+          Kontakt os
+        </a>
+      </nav>
+
+      <ThemeToggle />
+
+      <details class="group relative md:hidden">
+        <summary
+          class="flex size-10 list-none items-center justify-center rounded-full border border-border text-ink [&::-webkit-details-marker]:hidden"
+          aria-label="Åbn menu"
+        >
+          <Icon name="menu" class="size-5 group-open:hidden" />
+          <Icon name="close" class="hidden size-5 group-open:block" />
+        </summary>
+        <nav
+          class="absolute right-0 top-[calc(100%+0.75rem)] w-56 rounded-2xl border border-border bg-surface p-3 shadow-card-hover"
+          aria-label="Mobilnavigation"
+        >
+          {
+            nav.map((item) => (
+              <a
+                href={item.href}
+                class="block rounded-lg px-3 py-2.5 text-sm font-medium text-ink hover:bg-accent-soft"
+              >
+                {item.label}
+              </a>
+            ))
+          }
+          <a
+            href="#kontakt"
+            class="mt-1 block rounded-lg bg-accent px-3 py-2.5 text-center text-sm font-semibold text-accent-ink"
+          >
+            Kontakt os
+          </a>
+        </nav>
+      </details>
+    </div>
+  </div>
+</header>

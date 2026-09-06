@@ -1,0 +1,112 @@
+---
+import Base from "../layouts/Base.astro";
+import { site } from "../config";
+
+const lastUpdated = "3. september 2026";
+---
+
+<Base
+  title={`Privatlivspolitik — ${site.name}`}
+  description={`Læs hvordan ${site.name} behandler personoplysninger indsamlet via kontaktformularen på ${site.domain}.`}
+>
+  <section class="mx-auto max-w-3xl px-6 py-20 sm:py-28 lg:px-8">
+    <p class="text-sm font-semibold uppercase tracking-[0.16em] text-accent">Privatlivspolitik</p>
+    <h1 class="mt-3 text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+      Sådan behandler vi dine oplysninger
+    </h1>
+    <p class="mt-4 text-sm text-muted">Senest opdateret: {lastUpdated}</p>
+
+    <div class="prose-content mt-10 space-y-8 text-[15px] leading-relaxed text-ink">
+      <div>
+        <h2 class="text-lg font-semibold">Dataansvarlig</h2>
+        <p class="mt-2 text-muted">
+          {site.name}, CVR {site.cvr}, er dataansvarlig for behandlingen af
+          de personoplysninger, du afgiver på {site.domain}. Har du
+          spørgsmål til denne politik, kan du kontakte os på{" "}
+          <a href={`mailto:${site.email}`} class="text-accent underline underline-offset-2">
+            {site.email}
+          </a>.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-lg font-semibold">Hvilke oplysninger indsamler vi</h2>
+        <p class="mt-2 text-muted">
+          Når du bruger kontaktformularen på siden, indsamler vi de
+          oplysninger, du selv indtaster: navn, e-mailadresse og indholdet
+          af din besked. Der indsamles ingen oplysninger automatisk via
+          cookies, tracking eller lignende teknologier — denne hjemmeside
+          bruger ikke analyseværktøjer og sætter ingen cookies.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-lg font-semibold">Formål og retsgrundlag</h2>
+        <p class="mt-2 text-muted">
+          Oplysningerne behandles udelukkende med det formål at besvare
+          din henvendelse og eventuelt indgå i en dialog om et
+          samarbejde. Retsgrundlaget er databeskyttelsesforordningens
+          artikel 6, stk. 1, litra f (legitim interesse i at kunne
+          besvare henvendelser) eller, hvor relevant, litra b (forud for
+          indgåelse af en kontrakt).
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-lg font-semibold">Videregivelse og databehandlere</h2>
+        <p class="mt-2 text-muted">
+          Kontaktformularen leveres teknisk af tredjepartstjenesten{" "}
+          <a
+            href="https://web3forms.com"
+            class="text-accent underline underline-offset-2"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Web3Forms
+          </a>, som modtager og videresender formularens indhold til vores
+          e-mail. Vi anbefaler at læse Web3Forms' egen privatlivspolitik
+          for information om deres behandling af data. Oplysningerne
+          videregives i øvrigt ikke til tredjepart og anvendes ikke til
+          markedsføring.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-lg font-semibold">Opbevaring</h2>
+        <p class="mt-2 text-muted">
+          Henvendelser opbevares, så længe det er nødvendigt for at
+          besvare og følge op på dem, og slettes herefter løbende.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-lg font-semibold">Dine rettigheder</h2>
+        <p class="mt-2 text-muted">
+          Du har efter databeskyttelsesforordningen ret til indsigt i,
+          berigtigelse af og sletning af dine personoplysninger samt ret
+          til at gøre indsigelse mod behandlingen. Kontakt os på{" "}
+          <a href={`mailto:${site.email}`} class="text-accent underline underline-offset-2">
+            {site.email}
+          </a>{" "}
+          for at gøre brug af dine rettigheder. Du kan desuden klage til
+          Datatilsynet, se{" "}
+          <a
+            href="https://www.datatilsynet.dk"
+            class="text-accent underline underline-offset-2"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            datatilsynet.dk
+          </a>.
+        </p>
+      </div>
+    </div>
+
+    <a
+      href="/"
+      class="mt-12 inline-flex items-center gap-2 text-sm font-semibold text-accent hover:underline"
+    >
+      ← Tilbage til forsiden
+    </a>
+  </section>
+</Base>

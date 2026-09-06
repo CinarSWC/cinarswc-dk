@@ -1,0 +1,77 @@
+---
+import Icon from "./Icon.astro";
+import { founder } from "../config";
+---
+
+<section id="om" class="scroll-mt-20 border-t border-border bg-canvas py-20 sm:py-28">
+  <div class="mx-auto grid max-w-6xl gap-12 px-6 lg:grid-cols-[1.1fr_0.9fr] lg:px-8">
+    <div>
+      <p class="text-sm font-semibold uppercase tracking-[0.16em] text-accent">Om os</p>
+      <h2 class="mt-3 text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+        Uafhængig rådgivning, tæt på det tekniske
+      </h2>
+      <div class="mt-6 space-y-4 text-lg leading-relaxed text-muted">
+        <p>
+          Cinar Software Consulting er en dansk konsulentvirksomhed, der
+          rådgiver om softwarearkitektur, applikationsudvikling og AI —
+          med begge fødder solidt plantet i implementeringen, ikke kun i
+          strategien.
+        </p>
+        <p>
+          Vi arbejder tæt sammen med jeres team, uanset om opgaven er at
+          designe et nyt system fra bunden, sikre en eksisterende
+          løsning, eller finde ud af, hvor generativ AI reelt skaber
+          værdi i forretningen.
+        </p>
+      </div>
+    </div>
+
+    <div class="grid content-start gap-5 sm:grid-cols-2 lg:grid-cols-1">
+      <div class="rounded-2xl border border-border bg-surface p-6 shadow-card">
+        <Icon name="shield" class="size-6 text-accent" />
+        <h3 class="mt-4 font-semibold text-ink">Sikkerhed som standard</h3>
+        <p class="mt-2 text-sm leading-relaxed text-muted">
+          Adgangsstyring og datasikkerhed tænkes ind fra starten — ikke
+          som en eftertanke.
+        </p>
+      </div>
+      <div class="rounded-2xl border border-border bg-surface p-6 shadow-card">
+        <Icon name="workflow" class="size-6 text-accent" />
+        <h3 class="mt-4 font-semibold text-ink">Direkte samarbejde</h3>
+        <p class="mt-2 text-sm leading-relaxed text-muted">
+          Kort vej fra beslutning til implementering — uden lag af
+          projektledelse imellem.
+        </p>
+      </div>
+    </div>
+
+    <div
+      class="mt-16 grid gap-8 rounded-3xl border border-border bg-surface p-8 shadow-card sm:p-10 lg:col-span-2 lg:grid-cols-[auto_1fr] lg:items-start lg:gap-10"
+    >
+      <img
+        src={founder.photo}
+        alt={`Portræt af ${founder.name}`}
+        width="176"
+        height="176"
+        class="size-32 rounded-2xl object-cover object-[center_22%] sm:size-40 lg:size-44"
+      />
+      <div>
+        <h3 class="text-xl font-semibold text-ink">{founder.name}</h3>
+        <p class="mt-1 text-sm font-medium text-accent">{founder.title}</p>
+        <p class="mt-4 max-w-2xl text-[15px] leading-relaxed text-muted">
+          {founder.bio}
+        </p>
+        <ul class="mt-5 grid gap-x-6 gap-y-2 sm:grid-cols-2">
+          {
+            founder.credentials.map((item) => (
+              <li class="flex items-start gap-2.5 text-sm text-ink">
+                <Icon name="check" class="mt-0.5 size-4 shrink-0 text-accent" />
+                <span>{item}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

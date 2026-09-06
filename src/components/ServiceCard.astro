@@ -1,0 +1,46 @@
+---
+import Icon from "./Icon.astro";
+import type { Service } from "../config";
+import { services } from "../config";
+
+type Props = {
+  service: Service;
+  index: number;
+};
+
+const { service, index } = Astro.props;
+---
+
+<article
+  id={service.slug}
+  class="group flex flex-col rounded-2xl border border-border bg-surface p-7 shadow-card transition-all hover:-translate-y-1 hover:shadow-card-hover"
+>
+  <div class="flex items-center justify-between">
+    <span
+      class="flex size-11 items-center justify-center rounded-xl bg-accent-soft text-accent"
+    >
+      <Icon name={service.icon} class="size-5.5" />
+    </span>
+    <span class="text-xs font-semibold tabular-nums text-muted"
+      >{String(index + 1).padStart(2, "0")} / {String(services.length).padStart(2, "0")}</span
+    >
+  </div>
+
+  <h3 class="mt-5 text-lg font-semibold leading-snug text-ink">
+    {service.title}
+  </h3>
+  <p class="mt-3 text-[15px] leading-relaxed text-muted">
+    {service.summary}
+  </p>
+
+  <ul class="mt-5 space-y-2.5 border-t border-border pt-5">
+    {
+      service.bullets.map((bullet) => (
+        <li class="flex items-start gap-2.5 text-sm text-ink">
+          <Icon name="check" class="mt-0.5 size-4 shrink-0 text-accent" />
+          <span>{bullet}</span>
+        </li>
+      ))
+    }
+  </ul>
+</article>

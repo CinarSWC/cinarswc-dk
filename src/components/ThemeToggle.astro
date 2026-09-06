@@ -1,0 +1,67 @@
+---
+import Icon from "./Icon.astro";
+---
+
+{/*
+  Both icons are always in the DOM; global.css shows exactly one of them based
+  on <html data-theme> / prefers-color-scheme, so the correct icon is painted
+  straight away and never swaps after hydration.
+
+  The label is the *action*, not the state ("switch to dark"), and is corrected
+  on load — the server can't know which theme the visitor will end up seeing.
+*/}
+<button
+  type="button"
+  class="theme-toggle flex size-10 shrink-0 items-center justify-center rounded-full border border-border text-ink transition-colors hover:bg-accent-soft"
+  aria-label="Skift farvetema"
+>
+  <Icon name="sun" class="theme-icon-sun size-5" />
+  <Icon name="moon" class="theme-icon-moon size-5" />
+</button>
+
+<script>
+  const STORAGE_KEY = "theme";
+  const root = document.documentElement;
+  const query = window.matchMedia("(prefers-color-scheme: dark)");
+
+  /** The theme actually on screen: an explicit choice, else the OS preference. */
+  function currentTheme() {
+    const chosen = root.getAttribute("data-theme");
+    if (chosen === "light" || chosen === "dark") return chosen;
+    return query.matches ? "dark" : "light";
+  }
+
+  function sync() {
+    const theme = currentTheme();
+    const label =
+      theme === "dark" ? "Skift til lys visning" : "Skift til mørk visning";
+
+    for (const button of document.querySelectorAll(".theme-toggle")) {
+      button.setAttribute("aria-label", label);
+      button.setAttribute("title", label);
+    }
+
+    // Keeps the mobile browser chrome in step with the page.
+    document
+      .querySelector('meta[name="theme-color"]')
+      ?.setAttribute("content", theme === "dark" ? "#12141a" : "#fbfaf8");
+  }
+
+  for (const button of document.querySelectorAll(".theme-toggle")) {
+    button.addEventListener("click", () => {
+      const next = currentTheme() === "dark" ? "light" : "dark";
+      root.setAttribute("data-theme", next);
+      try {
+        localStorage.setItem(STORAGE_KEY, next);
+      } catch {
+        // Private mode or storage blocked — the choice just won't outlive the tab.
+      }
+      sync();
+    });
+  }
+
+  // Only matters while no explicit choice has been made.
+  query.addEventListener("change", sync);
+
+  sync();
+</script>

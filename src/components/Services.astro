@@ -1,0 +1,24 @@
+---
+import { services } from "../config";
+import ServiceCard from "./ServiceCard.astro";
+---
+
+<section id="ydelser" class="scroll-mt-20 border-t border-border bg-canvas py-20 sm:py-28">
+  <div class="mx-auto max-w-6xl px-6 lg:px-8">
+    <div class="max-w-2xl">
+      <p class="text-sm font-semibold uppercase tracking-[0.16em] text-accent">Ydelser</p>
+      <h2 class="mt-3 text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+        Seks specialer, ét samlet blik på jeres software
+      </h2>
+      <p class="mt-4 text-lg leading-relaxed text-muted">
+        Uanset om opgaven er et nyt system, en sikker login-løsning eller
+        AI forankret i jeres data, går rådgivningen altid efter det, der
+        reelt flytter forretningen.
+      </p>
+    </div>
+
+    <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {services.map((service, index) => <ServiceCard service={service} index={index} />)}
+    </div>
+  </div>
+</section>

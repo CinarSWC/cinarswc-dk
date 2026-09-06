@@ -1,0 +1,164 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Nordic light minimal palette */
+  --color-canvas: #fbfaf8;
+  --color-surface: #ffffff;
+  --color-ink: #16181d;
+  --color-muted: #6b6f76;
+  --color-border: #e5e3de;
+  --color-accent: #0e4f4b;
+  --color-accent-ink: #ffffff;
+  --color-accent-soft: #e4efed;
+
+  --shadow-card: 0 1px 2px rgba(22, 24, 29, 0.04);
+  --shadow-card-hover: 0 12px 24px -12px rgba(22, 24, 29, 0.16);
+}
+
+/*
+ * Theme switching — three states:
+ *
+ *   <html data-theme="light">  visitor chose light, wins over the OS
+ *   <html data-theme="dark">   visitor chose dark, wins over the OS
+ *   <html> (no attribute)      no choice made, follow prefers-color-scheme
+ *
+ * The choice lives in localStorage and is stamped onto <html> by a blocking
+ * script in Base.astro, so the correct palette is in place before first paint.
+ * ThemeToggle.astro writes it.
+ *
+ * The dark token block is therefore written twice — once for the explicit
+ * choice, once for the OS preference guarded against an explicit light choice.
+ * Keep the two copies in sync.
+ *
+ * NOTE: `@theme` is a build-time directive extracted statically by Tailwind —
+ * nesting it inside `@media` does NOT scope it at runtime, it just lets the
+ * last declaration silently win at build time. To actually vary at runtime the
+ * custom properties have to be overridden by plain selectors, as below.
+ */
+:root {
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --color-canvas: #12141a;
+  --color-surface: #191c22;
+  --color-ink: #f4f3f0;
+  --color-muted: #a2a6ae;
+  --color-border: #2b2f38;
+  --color-accent: #52c9bd;
+  --color-accent-ink: #0b1210;
+  --color-accent-soft: #1a2b29;
+
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-card-hover: 0 12px 24px -12px rgba(0, 0, 0, 0.6);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+
+    --color-canvas: #12141a;
+    --color-surface: #191c22;
+    --color-ink: #f4f3f0;
+    --color-muted: #a2a6ae;
+    --color-border: #2b2f38;
+    --color-accent: #52c9bd;
+    --color-accent-ink: #0b1210;
+    --color-accent-soft: #1a2b29;
+
+    --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.3);
+    --shadow-card-hover: 0 12px 24px -12px rgba(0, 0, 0, 0.6);
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-canvas);
+    color: var(--color-ink);
+  }
+
+  ::selection {
+    background-color: var(--color-accent);
+    color: var(--color-accent-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  .skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -3rem;
+    z-index: 50;
+    background-color: var(--color-accent);
+    color: var(--color-accent-ink);
+    padding: 0.6rem 1rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    transition: top 0.15s ease;
+  }
+
+  .skip-link:focus {
+    top: 1rem;
+  }
+
+  /*
+   * Theme toggle: show the icon for the theme you would switch *to*, so the
+   * moon shows while light and the sun while dark. Done in CSS rather than JS
+   * so the right icon is painted immediately, with no swap on hydration.
+   * Mirrors the three-state logic of the token blocks above.
+   */
+  .theme-toggle .theme-icon-sun {
+    display: none;
+  }
+
+  .theme-toggle .theme-icon-moon {
+    display: block;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .theme-toggle .theme-icon-sun {
+      display: block;
+    }
+
+    :root:not([data-theme="light"]) .theme-toggle .theme-icon-moon {
+      display: none;
+    }
+  }
+
+  :root[data-theme="dark"] .theme-toggle .theme-icon-sun {
+    display: block;
+  }
+
+  :root[data-theme="dark"] .theme-toggle .theme-icon-moon {
+    display: none;
+  }
+}
